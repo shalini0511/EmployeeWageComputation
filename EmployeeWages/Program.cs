@@ -7,30 +7,31 @@ namespace EmployeeWages
         static void Main(string[] args)
         {
             //local variable
-            int employeePresent  = 1;
-            int empHours = 0;
-            int empRatePerHour = 20;
-            int empWage = 0;
-            //creating object
+
+            int employeeState = 1, partTimeState = 2;
+            int dailyWage, wageperHour = 20, hours = 8, partTimeHour = 4;
             Random random = new Random();
-            //calling Next() for generating random values
-            int Attendance = random.Next(0, 2);
+            int Attendance = random.Next(0, 3);
             Console.WriteLine("Random number is :" + Attendance);
 
-            if (Attendance == employeePresent)
+            if ((partTimeState == Attendance) || (Attendance == employeeState))
             {
                 Console.WriteLine("Employee is Present \n");
-                empHours = 8;
             }
             else
             {
                 Console.WriteLine("Employee is Absent \n");
-                empHours = 0;
 
             }
-            empWage = empRatePerHour * empHours;
-            Console.Read();
+            if (Attendance == 2)
+            {
+                hours = partTimeHour; Attendance = 1;
+            }
+            dailyWage = wageperHour * hours * Attendance;
+            Console.WriteLine("Employee daily wage for 20/hr is : " + dailyWage);
         }
+
     }
+    
     
 }
