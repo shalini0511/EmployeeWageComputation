@@ -4,53 +4,71 @@ namespace EmployeeWages
 {
     class Program
     {
-        static void Main(string[] args)
+        //Declaring Constant Variable
+        public const int FULL_TIME = 1;
+        public const int PART_TIME = 2;
+        //  private static int maxHoursPerMonth;
+
+        // public const int WAGE_PER_HOUR = 20;
+        // public const int WORKING_PER_MONTH = 20;
+        //public const int MAX_WORKING_DAYS = 20;
+        //public const int MAX_WORKING_HRS = 100;
+        public static void ComputeWage(string company, int wage_per_hour, int max_working_days, int maxHoursPerMonth)
         {
-            //local variable
-            int employeeStatus;
-            int totalWorkingDays = 0;
-            int totalWorkingHours = 0;
-            int monthlyWage = 0;
+            //Console.WriteLine("Welcome to employee wage computation");
+            //Creating a Random Function
+            int empHours = 0;
+            int empDailyWage = 0;
+            int workingDays = 1;
+            int workingHrs = 0;
+            int totalWage = 0;
 
+            Random r = new Random();
 
-            int wagePerHour = 20;
-            Random random = new Random();
-            employeeStatus = random.Next(0, 3);
-
-            switch (employeeStatus)
+            while (workingDays <= max_working_days && workingHrs <= maxHoursPerMonth)
             {
-                case 1:
-                    Console.WriteLine("Full time- Employee Present");
-                    while (totalWorkingDays <= 20 && totalWorkingHours <= 100)
-                    {
-                        totalWorkingHours = totalWorkingHours + 8;
-                        totalWorkingDays++;
-                        monthlyWage = monthlyWage + (wagePerHour * 8);
-                    }
-                    Console.WriteLine("Total wage for month is:" + monthlyWage);
+                //Calling the next method in Random Class
+                int empAttendance = r.Next(0, 3);
+                switch (empAttendance)
+                {
+                    case FULL_TIME:
+                        // Console.WriteLine("Employee is present for full-time");
+                        empHours = 8;
+                        break;
+                    case PART_TIME:
+                        //Console.WriteLine("Employee is present for part-time");
+                        empHours = 4;
+                        break;
+                    default:
+                        //Console.WriteLine("Employee is absent");
+                        break;
 
-                    break;
-                case 0:
-                    Console.WriteLine("Employee Absent");
-                    break;
-                case 2:
-                    Console.WriteLine("part time- Employee Present");
-                    while (totalWorkingDays <= 20 && totalWorkingHours <= 100)
-                    {
-                        totalWorkingHours = totalWorkingHours + 4;
-                        totalWorkingDays++;
-                        monthlyWage = monthlyWage + (wagePerHour * 4);
-                    }
-                    Console.WriteLine("Total wage for month is: " + monthlyWage);
-                    break;
-
+                }
+                empDailyWage = empHours * wage_per_hour;
+                totalWage += empDailyWage;
+                workingHrs += empHours;
+                if (empAttendance != 0)
+                {
+                    workingDays++;
+                }
             }
-            
-
+            Console.WriteLine("Company Name:" + company);
+            Console.WriteLine("Working Hours :" + workingHrs);
+            Console.WriteLine("Employee Wage Per day :" + empDailyWage);
+            Console.WriteLine("Working days in a month :" + workingDays);
+            Console.WriteLine("Employee Wage for 20 working days :" + totalWage);
 
         }
-
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to employee wage computation");
+            ComputeWage("TVSNEXT", 80, 12, 90);
+            ComputeWage("Wipro", 55, 22, 110);
+            ComputeWage("RoyalEnfield", 78, 32, 120);
+        }
     }
-    
-    
+
 }
+    
+    
+
